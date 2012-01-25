@@ -44,4 +44,91 @@ function getCurrentTabId() {
   return id;
 }
 
+var Entries = [];
+
+function parseDocList(raw) {
+	var rawHTML = raw.match(/<table.*?>([\s\S]*?)<\/table>/)[1];
+	alert("raw html:" + rawHTML);
+	var docTable = document.create("table");
+	docTable.innerHTML = rawHTML;
+	
+	var entries = docTable.querySelectorAll("td > a");
+	
+	alert("found " + entries.length + " entries");
+	
+	for(var i = 0; i < entries.length; i++ ) {
+		var entry = entries[i];
+		description = getDescription(entry);
+		addEntry({'path': entry.href, 'name': entry.innerText, 'desc' : description})		
+	}	
+}
+
+function addEntry(entry) {
+	if (Entries.length == 0) {
+		Entries.push(entry)
+	} else {
+		index = getInsertionIndex([0,Entries.length-1], entry.path);
+		var firstHalf = Entries.slice(0, index);
+		var lastHalf = Entries.slice(index+1, Entries.length);
+		Entries = firstHalf.concat([entry]).concat(lastHalf);
+	}
+}
+
+function getInsertionIndex(range, path) {
+
+	if (range.length == 2) {
+		if (Entries[range[0]] < path) {
+			if (path < Entries[range[1]]) {
+				return range[1]; // == range[0] + 1
+			} else {
+				return range[1]+1;
+			}
+		}
+	}
+
+	var pivot = Math.floor( (range[0] + range[1])/2 );
+	var pivotValue = Entries[pivot];	
+	var low = range[0];
+	var high = range[1];
+	
+	if (pivotValue > path) {
+		low = pivot;
+	} else {
+		high = pivot;
+	}
+	
+	return getInsertionIndex([low, high], path);
+}
+
+function getDescription(entry) {
+	var descElem = null;
+	var desc = "";
+	var candidates = entry.parentElement.querySelector("td");
+	for(var i=0; i < candidates.length; i++) {
+		var candidate = candidates[i];
+		if (candidate != entry) {
+			descElem = candidate;
+		}
+	}
+	
+	if (descElem !== null) {
+		desc = descElem.innerText;
+	}
+	
+	return desc;
+}
+
+function fetchDocList() {
+	var url = "http://golang.org/pkg/";
+	
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener('readystatechange', function(evt) {
+      if (xhr.readyState == 4 && xhr.responseText) {
+        parseDocList(xhr.responseText);
+      }
+    });
+    xhr.open('GET', url, true);
+    xhr.send();	
+}
+
 </script>

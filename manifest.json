@@ -4,6 +4,7 @@
   "omnibox": { "keyword" : "gpkg" },
   "background_page": "background.html",
   "permissions": [
+    "http://golang.org/*",
      "tabs"
    ]
 }
