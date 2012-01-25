@@ -6,6 +6,7 @@ root = "http://golang.org/pkg/"
 chrome.omnibox.onInputChanged.addListener(
   function(text, suggest) {
     console.log('inputChanged: ' + text);
+	// I'll fill in suggestions once I can properly grab the data
 /*    suggest([
       {content: text + " one", description: "the first one"},
       {content: text + " number two", description: "the second entry"}
@@ -20,10 +21,27 @@ chrome.omnibox.onInputEntered.addListener(
 	openTab(root + text);
   });
 
+var myTab;
 
 function openTab(url) {
 	var args = {'url' : url, 'selected':true};
-	chrome.tabs.create(args, function(tab) { _tab = tab;});
+	chrome.tabs.create(args, function(tab) {myTab = tab;})
+}
+
+// This always seems to return -1. Is a new tab not a tab?
+function getCurrentTabId() {
+  var id = -1;
+  chrome.windows.getCurrent(
+    function(win) {
+      for(var i=0; i < win.tabs.length; i++) {
+        var tab = win.tabs[i];
+        if (tab.active) {
+          id = tab.id;
+        }
+      }
+    }
+  );
+  return id;
 }
 
 </script>
