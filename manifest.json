@@ -1,0 +1,9 @@
+{
+  "name": "Go package search",
+  "version": "1.0",
+  "omnibox": { "keyword" : "gpkg" },
+  "background_page": "background.html",
+  "permissions": [
+     "tabs"
+   ]
+}
