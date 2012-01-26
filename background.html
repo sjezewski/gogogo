@@ -48,7 +48,7 @@ var Entries = [];
 var Parsed = false;
 
 function parseDocList(raw) {
-	if Parsed {
+	if (Parsed) {
 		return
 	}
 	
@@ -56,7 +56,7 @@ function parseDocList(raw) {
 
 	alert("raw html:" + rawHTML);
 
-	var docTable = document.create("table");
+	var docTable = document.createElement("table");
 	docTable.innerHTML = rawHTML;
 	
 	var entries = docTable.querySelectorAll("td > a");
@@ -66,64 +66,22 @@ function parseDocList(raw) {
 	for(var i = 0; i < entries.length; i++ ) {
 		var entry = entries[i];
 		description = getDescription(entry);
-		addEntry({'path': entry.href, 'name': entry.innerText, 'desc' : description})		
+		Entries.append({'path': entry.href, 'name': entry.innerText, 'desc' : description});
 	}	
 	
 	alert("Entries:" + JSON.stringify(Entries))
 	
 	Parsed = true;
 }
-function addEntry(entry) {
-	if (Entries.length == 0) {
-		Entries.push(entry)
-	} else {
-		index = getInsertionIndex([0,Entries.length-1], entry.path);
-		console.log("Should insert at:" + index)
-		var firstHalf = Entries.slice(0, index);
-		var lastHalf = Entries.slice(index, Entries.length);
-		Entries = firstHalf.concat([entry]).concat(lastHalf);
-	}
-}
 
-function getInsertionIndex(range, path) {
-	var spread = range[1] - range[0];
-
-	if (spread == 0) {
-		if (path > Entries[range[0]]) {
-			return range[0]+1;
-		} else {
-			return range[0]
-		}		
-	}
-
-    if (spread == 1) {
-		if (Entries[range[0]] < path) {
-			if (path < Entries[range[1]]) {
-				return range[0];
-			} else {
-				return range[1];
-			}
-		}
-	}
-
-	var pivot = Math.floor( (range[0] + range[1])/2 );
-	var pivotValue = Entries[pivot].path;	
-	var low = range[0];
-	var high = range[1];
-		
-	if (pivotValue > path) {
-		high = pivot;
-	} else {
-		low = pivot;
-	}
-
-	return getInsertionIndex([low, high], path);
+function findEntry(entry) {
 }
 
 function getDescription(entry) {
 	var descElem = null;
 	var desc = "";
-	var candidates = entry.parentElement.querySelector("td");
+	var candidates = entry.parentElement.parentElement.querySelector("td");
+
 	for(var i=0; i < candidates.length; i++) {
 		var candidate = candidates[i];
 		if (candidate != entry) {
@@ -152,6 +110,7 @@ function fetchDocList() {
     xhr.send();	
 }
 
+	alert("prefetching")
 fetchDocList();
-
+	alert("postfetching")
 </script>
