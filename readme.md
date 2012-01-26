@@ -4,9 +4,7 @@ Go pkg omni-bar search.
 
 ### Install ###
 
-- Clone the repo. 
-- In Chrome, do Preferences -> Extensions -> Add Unpacked Extension
-- Navigate to the repo's folder
+[Download](https://github.com/sjezewski/gogogo/raw/master/gogogo.crx) the extension -- chrome will auto-prompt you to install it.
 
 ### Use ###
 
@@ -18,5 +16,6 @@ Go pkg omni-bar search.
 
 ### Todo ###
 
+- Load result in current tab if its a new tab
 - Add functions to the auto-complete search
 - Capture 'tab' to complete words along the path
