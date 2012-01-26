@@ -13,6 +13,7 @@ Go pkg omni-bar search.
 - In the search bar, type : `gpkg` + `<tab>`
 - Now you'll have the extension's prompt
 - Type in a package name or path
+  - Optionally select one of the auto-completions in the list
 - Hit enter to navigate to that documentation page
 
 ### Todo ###
