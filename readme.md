@@ -2,7 +2,7 @@
 
 Go pkg omni-bar search.
 
-<img src='https://github.com/sjezewski/gogogo/raw/master/gogogo/doc/screenshot.png'/>
+<img src='https://github.com/sjezewski/gogogo/raw/master/doc/screenshot.png'/>
 
 ### Install ###
 
