@@ -2,6 +2,8 @@
 
 Go pkg omni-bar search.
 
+<img src='https://github.com/sjezewski/gogogo/raw/master/gogogo/doc/screenshot.png'/>
+
 ### Install ###
 
 [Download](https://github.com/sjezewski/gogogo/raw/master/gogogo.crx) the extension -- chrome will auto-prompt you to install it.
