@@ -13,7 +13,6 @@ chrome.omnibox.onInputChanged.addListener(
 chrome.omnibox.onInputEntered.addListener(
   function(text) {
     console.log('inputEntered: ' + text);
-    //alert('You just typed "' + text + '"');
 	openTab(root + text);
   });
 
@@ -74,9 +73,12 @@ function findMatches(searchTerm) {
 		if (match) {
 			// TODO: wrap the matched part in <match>
 			var description = entry.path + " : " + entry.desc
+			if (description.length > 77) {
+				description = description.substr(0,76) + "..."
+			}
 			var result = {
 				"content" : entry.path,
-				"description" : description.substr(0,77) + "..."
+				"description" : description
 			}
 			console.log("result:", result, "entry:", entry)
 			
