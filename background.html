@@ -53,28 +53,24 @@ function parseDocList(raw) {
 	}
 	
 	var rawHTML = raw.match(/<table.*?>([\s\S]*?)<\/table>/)[1];
-
-	alert("raw html:" + rawHTML);
-
 	var docTable = document.createElement("table");
 	docTable.innerHTML = rawHTML;
 	
 	var entries = docTable.querySelectorAll("td > a");
 	
-	alert("found " + entries.length + " entries");
+	console.log("found " + entries.length + " entries");
 	
 	for(var i = 0; i < entries.length; i++ ) {
 		var entry = entries[i];
 		description = getDescription(entry);
-		Entries.append({'path': entry.href, 'name': entry.innerText, 'desc' : description});
+		Entries.push({'path': entry.getAttribute('href'), 'name': entry.innerText, 'desc' : description});
 	}	
-	
-	alert("Entries:" + JSON.stringify(Entries))
 	
 	Parsed = true;
 }
 
-function findEntry(entry) {
+function findEntry(searchTerm, range) {
+	
 }
 
 function getDescription(entry) {
@@ -97,7 +93,6 @@ function getDescription(entry) {
 }
 
 function fetchDocList() {
-	alert("fetching")
 	var url = "http://golang.org/pkg/";
 	
     var xhr = new XMLHttpRequest();
@@ -110,7 +105,6 @@ function fetchDocList() {
     xhr.send();	
 }
 
-	alert("prefetching")
 fetchDocList();
-	alert("postfetching")
+
 </script>
