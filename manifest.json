@@ -6,5 +6,8 @@
   "permissions": [
     "http://golang.org/*",
      "tabs"
-   ]
+   ],
+  "icons": {
+    "16": "logo.png"
+  }
 }
