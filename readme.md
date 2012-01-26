@@ -19,3 +19,4 @@ Go pkg omni-bar search.
 
 - Auto-complete packages as you type
 - Add functions to the auto-complete search
+- Capture 'tab' to complete words along the path

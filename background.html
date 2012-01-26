@@ -6,11 +6,7 @@ root = "http://golang.org/pkg/";
 chrome.omnibox.onInputChanged.addListener(
   function(text, suggest) {
     console.log('inputChanged: ' + text);
-	// I'll fill in suggestions once I can properly grab the data
-/*    suggest([
-      {content: text + " one", description: "the first one"},
-      {content: text + " number two", description: "the second entry"}
-    ]);*/
+	suggest( findMatches(text) );
   });
 
 // This event is fired with the user accepts the input in the omnibox.
@@ -69,14 +65,38 @@ function parseDocList(raw) {
 	Parsed = true;
 }
 
-function findEntry(searchTerm, range) {
+function findMatches(searchTerm) {
+	var matches = [];	
+	// Dumb search
+	for(var i=0; i < Entries.length; i++) {
+		var entry = Entries[i];
+		match = entry.path.match(searchTerm);
+		if (match) {
+			// TODO: wrap the matched part in <match>
+			var description = entry.path + " : " + entry.desc
+			var result = {
+				"content" : entry.path,
+				"description" : description.substr(0,77) + "..."
+			}
+			console.log("result:", result, "entry:", entry)
+			
+			matches.push(result);
+		}
+		
+		if (matches.length > 5) {
+			// Only 5 are shown anyway
+			return matches
+		}
+	}
 	
+	return matches;
 }
+
 
 function getDescription(entry) {
 	var descElem = null;
 	var desc = "";
-	var candidates = entry.parentElement.parentElement.querySelector("td");
+	var candidates = entry.parentElement.parentElement.querySelectorAll("td");
 
 	for(var i=0; i < candidates.length; i++) {
 		var candidate = candidates[i];
@@ -89,7 +109,7 @@ function getDescription(entry) {
 		desc = descElem.innerText;
 	}
 	
-	return desc;
+	return desc.replace("\n", " ");
 }
 
 function fetchDocList() {
