@@ -71,16 +71,24 @@ function findMatches(searchTerm) {
 		var entry = Entries[i];
 		match = entry.path.match(searchTerm);
 		if (match) {
-			// TODO: wrap the matched part in <match>
-			var description = entry.path + " : " + entry.desc
+			var thisMatch = match[0];
+			var pathMatch = [];
+			var index = entry.path.indexOf(thisMatch);
+			
+			pathMatch.push( entry.path.substr(0,index) );
+			pathMatch.push( "<match>" + thisMatch + "</match>");
+			pathMatch.push( entry.path.substr(index + thisMatch.length, entry.path.length) );
+			pathMatch = pathMatch.join('');
+			
+			var description = pathMatch + " : " + entry.desc;
 			if (description.length > 77) {
 				description = description.substr(0,76) + "..."
 			}
+
 			var result = {
 				"content" : entry.path,
 				"description" : description
 			}
-			console.log("result:", result, "entry:", entry)
 			
 			matches.push(result);
 		}
