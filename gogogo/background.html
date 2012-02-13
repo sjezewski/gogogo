@@ -6,7 +6,15 @@ root = "http://golang.org/pkg/";
 chrome.omnibox.onInputChanged.addListener(
   function(text, suggest) {
     console.log('inputChanged: ' + text);
-	suggest( findMatches(text) );
+	var matches = text.split("#");
+	console.log("Matches:", matches);
+	
+	if ( matches.length == 2 && matches[1].length > 0 ) {
+		findLinkMatches(matches[0], matches[1]);
+	} else {
+		suggest( findMatches(matches[0]) );	
+	}
+	
   });
 
 // This event is fired with the user accepts the input in the omnibox.
@@ -112,6 +120,73 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
 		}
 	}
 }
+
+function findLinkMatches(prefix, linkText) {
+	// Display link results if prefix is a substr of an entry's path
+	
+	results = []; // TODO: Make local after debugging
+	
+	for (var i=0; i < Entries.length; i++) {
+		var entry = Entries[i];
+		
+		if ( entry.path.match(prefix) ) {
+			var theseResults = findLinks(entry, linkText);
+			if (theseResults.length > 0) {
+				results.concat(theseResults);
+			}
+		}
+	}
+	
+	return results
+}
+
+function findLinks(entry, linkText) {
+	var results = []
+	
+	if (entry['links'] === undefined) {
+		console.log("Entry:", entry, " has no links")
+		return null
+	}
+	
+	for(var i=0; i < entry.links.length; i++) { 
+		var link = entry.links[i];
+		match = link.name.match(linkText);
+
+		if ( match ) {
+			var thisMatch = match[0];
+			var name = [];
+			var index = link.name.indexOf(thisMatch);
+			
+			name.push( link.name.substr(0,index) );
+			name.push( "<match>" + thisMatch + "</match>");
+			name.push( entry.path.substr(index + thisMatch.length, link.name.length) );
+			name = name.join('');
+			
+			var description = "";
+			
+			description += link.name;
+			
+			if (link.type == "func") {
+				description += " : " + link.signature;
+			}
+			
+			if (description.length > 77) {
+				description = description.substr(0,76) + "..."
+			}			
+			
+			var result = {
+				"content" : link.href,
+				"description" : description
+			}
+			
+			results.push(result);
+		}
+
+	}
+	
+	return results
+}
+
 
 function findMatches(searchTerm) {
 	var matches = [];	
