@@ -42,6 +42,8 @@ function getCurrentTabId() {
 var Entries = [];
 var Parsed = false;
 
+var fetchedPageLinks = 0;
+
 function parseDocList(raw) {
 	if (Parsed) {
 		return
@@ -58,15 +60,29 @@ function parseDocList(raw) {
 	for(var i = 0; i < entries.length; i++ ) {
 		var entry = entries[i];
 		description = getDescription(entry);
-		Entries.push({'path': entry.getAttribute('href'), 'name': entry.innerText, 'desc' : description});
+		var href = entry.getAttribute('href');
+		Entries.push({'path': href, 'name': entry.innerText, 'desc' : description});
+		if (fetchedPageLinks < 5) {
+			fetchLinks(i, href);
+			fetchedPageLinks++
+		}
 	}	
 	
 	Parsed = true;
 }
 
-function parseLinks(entryIndex, sourceURL, doc){
+function parseLinks(entryIndex, sourceURL, rawDoc){
+	console.log("Parsing links from:" + sourceURL);
+	
+	var doc = document.createElement("root");
+	doc.innerHTML = rawDoc;
+	
+	console.log(sourceURL + " Doc:", doc);
+	
 	var content = doc.querySelector("#content");
+	console.log("Found content:", content);
 	var links = content.querySelectorAll("#nav a[href*='#']");
+	console.log("Found " + links.length + " links.")
 	var entry = Entries[entryIndex];
 	var foundLink = false;
 		
@@ -98,7 +114,7 @@ function parseLinks(entryIndex, sourceURL, doc){
 			
 			// If its a function grab its signature
 			if (type == "func") {
-				var func = document.getElementById(name);
+				var func = doc.getElementById(name);
 				thisLink['signature'] = func.innerText;
 			}						
 			
@@ -180,6 +196,24 @@ function fetchDocList() {
 
 fetchDocList();
 
+function fetchLinks(entryIndex, path) {
+	var url = "http://golang.org/pkg/" + path;
+	console.log("Fetching url:", url);
+	
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener(
+		'readystatechange', 
+        function(index, sourceURL) {
+			return function(evt) {
+      			if (xhr.readyState == 4 && xhr.responseText) {
+					parseLinks(index, sourceURL, xhr.responseText);
+				}
+			}
+		}(entryIndex, url)
+	);
+    xhr.open('GET', url, true);
+    xhr.send();			
+}
 
 
 
