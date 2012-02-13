@@ -79,9 +79,7 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
 	
 	console.log(sourceURL + " Doc:", doc);
 	
-	var content = doc.querySelector("#content");
-	console.log("Found content:", content);
-	var links = content.querySelectorAll("#nav a[href*='#']");
+	var links = doc.querySelectorAll("#content > h2[id], #content > h3[id]");
 	console.log("Found " + links.length + " links.")
 	var entry = Entries[entryIndex];
 	var foundLink = false;
@@ -89,17 +87,23 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
 	for(var i=0; i < links.length; i++){
 		var link = links[i];
 		
-		var href = link.getAttribute('href');
-		console.log("href:",href)
-		var matches = href.match(/\#(.*)/);
-		console.log("Name matches:", matches)
-		var name = matches[1];
+		var name = link.getAttribute('id');
+		console.log("name:",name)
+		var href = sourceURL + "#" + name;
 
-		if (name != "Constants") {
+		if (name != "Subdirectories") {
 			console.log("Inner text:", link.innerText)
-			matches = link.innerText.match(/(\w*?)\s/);
+			var matches = link.innerText.match(/(\w*?)\s/);
 			console.log("Type matches:", matches)		
-			var type = matches[1];			
+			var type;
+
+			if (matches === null){
+				matches = name; // e.g. 'Constants' / 'Variables'
+			} else {
+				type = matches[1];			
+			}
+			
+
 		
 			if (!foundLink) {
 				entry['links'] = [];
@@ -109,13 +113,13 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
 			var thisLink = {
 				'name' : name,
 				'type' : type,
-				'href' : sourceURL + href
+				'href' : href
 			};
 			
 			// If its a function grab its signature
 			if (type == "func") {
-				var func = doc.getElementById(name);
-				thisLink['signature'] = func.innerText;
+				var code = link.nextElementSibling;
+				thisLink['signature'] = code.innerText;
 			}						
 			
 			entry['links'].push(thisLink);						
