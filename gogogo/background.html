@@ -42,8 +42,6 @@ function getCurrentTabId() {
 var Entries = [];
 var Parsed = false;
 
-var fetchedPageLinks = 0;
-
 function parseDocList(raw) {
 	if (Parsed) {
 		return
@@ -62,25 +60,18 @@ function parseDocList(raw) {
 		description = getDescription(entry);
 		var href = entry.getAttribute('href');
 		Entries.push({'path': href, 'name': entry.innerText, 'desc' : description});
-		if (fetchedPageLinks < 5) {
-			fetchLinks(i, href);
-			fetchedPageLinks++
-		}
+		fetchLinks(i, href);
 	}	
 	
 	Parsed = true;
 }
 
 function parseLinks(entryIndex, sourceURL, rawDoc){
-	console.log("Parsing links from:" + sourceURL);
 	
 	var doc = document.createElement("root");
 	doc.innerHTML = rawDoc;
 	
-	console.log(sourceURL + " Doc:", doc);
-	
 	var links = doc.querySelectorAll("#content > h2[id], #content > h3[id]");
-	console.log("Found " + links.length + " links.")
 	var entry = Entries[entryIndex];
 	var foundLink = false;
 		
@@ -88,13 +79,10 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
 		var link = links[i];
 		
 		var name = link.getAttribute('id');
-		console.log("name:",name)
 		var href = sourceURL + "#" + name;
 
 		if (name != "Subdirectories") {
-			console.log("Inner text:", link.innerText)
 			var matches = link.innerText.match(/(\w*?)\s/);
-			console.log("Type matches:", matches)		
 			var type;
 
 			if (matches === null){
@@ -102,8 +90,6 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
 			} else {
 				type = matches[1];			
 			}
-			
-
 		
 			if (!foundLink) {
 				entry['links'] = [];
