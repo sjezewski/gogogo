@@ -64,32 +64,47 @@ function parseDocList(raw) {
 	Parsed = true;
 }
 
-function parseFunctions(entryIndex, sourceURL, doc){
-	var content = doc.QuerySelector("content");
-	var functions = content.querySelectorAll("#nav a[href*='#']");
+function parseLinks(entryIndex, sourceURL, doc){
+	var content = doc.querySelector("#content");
+	var links = content.querySelectorAll("#nav a[href*='#']");
 	var entry = Entries[entryIndex];
+	var foundLink = false;
 		
-	for(var i=0; i < functions.length; i++){
-		var func = functions[i];
+	for(var i=0; i < links.length; i++){
+		var link = links[i];
 		
-		var href = func.getAttribute('href');
+		var href = link.getAttribute('href');
+		console.log("href:",href)
 		var matches = href.match(/\#(.*)/);
+		console.log("Name matches:", matches)
 		var name = matches[1];
-		var type = func.innerText.match(/\a*?\s/)[1];
 
 		if (name != "Constants") {
-			entry['functions'].push(
-				{
-					'name' : name,
-					'type' : type,
-					'href' : sourceURL + href
-				}
-			);						
-		}
+			console.log("Inner text:", link.innerText)
+			matches = link.innerText.match(/(\w*?)\s/);
+			console.log("Type matches:", matches)		
+			var type = matches[1];			
 		
-	}
+			if (!foundLink) {
+				entry['links'] = [];
+				foundLink = true;				
+			}
 
-	
+			var thisLink = {
+				'name' : name,
+				'type' : type,
+				'href' : sourceURL + href
+			};
+			
+			// If its a function grab its signature
+			if (type == "func") {
+				var func = document.getElementById(name);
+				thisLink['signature'] = func.innerText;
+			}						
+			
+			entry['links'].push(thisLink);						
+		}
+	}
 }
 
 function findMatches(searchTerm) {
