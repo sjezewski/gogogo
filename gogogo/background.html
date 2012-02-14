@@ -5,12 +5,9 @@ root = "http://golang.org/pkg/";
 // as long as the extension's keyword mode is still active.
 chrome.omnibox.onInputChanged.addListener(
   function(text, suggest) {
-    console.log('inputChanged: ' + text);
 	var matches = text.split("#");
-	console.log("Matches:", matches);
-	
+	console.log("Matches:", matches)
 	if ( matches.length == 2 && matches[1].length > 0 ) {
-		console.log("Searching for link matches");
 		suggest( findLinkMatches(matches[0], matches[1]) );
 	} else {
 		suggest( findMatches(matches[0]) );	
@@ -62,8 +59,6 @@ function parseDocList(raw) {
 	docTable.innerHTML = rawHTML;
 	
 	var entries = docTable.querySelectorAll("td > a");
-	
-	console.log("found " + entries.length + " entries");
 	
 	for(var i = 0; i < entries.length; i++ ) {
 		var entry = entries[i];
@@ -130,28 +125,19 @@ function findLinkMatches(prefix, linkText) {
 	
 	results = []; // TODO: Make local after debugging
 	
-	console.log("prefix:" + prefix + ", linkText:" + linkText)
-	
 	for (var i=0; i < Entries.length; i++) {
 		var entry = Entries[i];
-		
-//		console.log("Checking path (" + entry.path + ") against prefix (" + prefix + ")")
-		
+				
 		if ( entry.path.match(prefix) ) {
-			console.log("MATCH", entry, linkText)
 			var theseResults = findLinks(entry, linkText);
-			console.log("match results:", theseResults);
+
 			if (theseResults.length > 0) {
-				console.log("concatenating results")
-				console.log("results prior:", results)
 				results = results.concat(theseResults);
-				console.log("results after:", results)				
 			}
 		}
 	}
-	
-	console.log("results:", results)
-	
+
+	console.log("results:", results)	
 	return results
 }
 
@@ -159,17 +145,15 @@ function findLinks(entry, linkText) {
 	var results = []
 	
 	if (entry['links'] === undefined) {
-		console.log("Entry:", entry, " has no links")
-		return null
+		// console.log("Entry:", entry, " has no links")
+		return []
 	}
 	
 	for(var i=0; i < entry.links.length; i++) { 
 		var link = entry.links[i];
 		match = link.name.match(linkText);
-		console.log("match name(" + link.name + ") and text(" + linkText + ")")
 
 		if ( match ) {
-			console.log("match!");
 			var thisMatch = match[0];
 			var name = [];
 			var index = link.name.indexOf(thisMatch);
@@ -179,12 +163,12 @@ function findLinks(entry, linkText) {
 			name.push( entry.path.substr(index + thisMatch.length, link.name.length) );
 			name = name.join('');
 			
-			var description = "";
-			
-			description += link.name;
+			var description = entry.path + " : ";
 			
 			if (link.type == "func") {
-				description += " : " + link.signature;
+				description += link.signature;
+			} else {
+				description += link.name;				
 			}
 			
 			if (description.length > 77) {
@@ -196,8 +180,11 @@ function findLinks(entry, linkText) {
 				"description" : description
 			}
 			
-			console.log("this match result:", result)
 			results.push(result);
+			
+			if (results.length > 5) {
+				return results
+			}
 		}
 
 	}
@@ -281,7 +268,6 @@ fetchDocList();
 
 function fetchLinks(entryIndex, path) {
 	var url = "http://golang.org/pkg/" + path;
-	console.log("Fetching url:", url);
 	
     var xhr = new XMLHttpRequest();
     xhr.addEventListener(
