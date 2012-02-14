@@ -14,10 +14,11 @@ Go pkg omni-bar search.
 - Now you'll have the extension's prompt
 - Type in a package name or path
   - Optionally select one of the auto-completions in the list
+- Type '#' followed by a function name to search for a function
+  - The matching function signatures will autopopulate
 - Hit enter to navigate to that documentation page
 
 ### Todo ###
 
 - Load result in current tab if its a new tab
-- Add functions to the auto-complete search
 - Capture 'tab' to complete words along the path
