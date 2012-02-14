@@ -10,7 +10,8 @@ chrome.omnibox.onInputChanged.addListener(
 	console.log("Matches:", matches);
 	
 	if ( matches.length == 2 && matches[1].length > 0 ) {
-		findLinkMatches(matches[0], matches[1]);
+		console.log("Searching for link matches");
+		suggest( findLinkMatches(matches[0], matches[1]) );
 	} else {
 		suggest( findMatches(matches[0]) );	
 	}
@@ -48,6 +49,7 @@ function getCurrentTabId() {
 }
 
 var Entries = [];
+var LoadedEntries = [];
 var Parsed = false;
 
 function parseDocList(raw) {
@@ -119,6 +121,8 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
 			entry['links'].push(thisLink);						
 		}
 	}
+	LoadedEntries.push(entryIndex);
+	console.log("Loaded " + 100*(LoadedEntries.length / Entries.length) + "%");
 }
 
 function findLinkMatches(prefix, linkText) {
@@ -126,16 +130,27 @@ function findLinkMatches(prefix, linkText) {
 	
 	results = []; // TODO: Make local after debugging
 	
+	console.log("prefix:" + prefix + ", linkText:" + linkText)
+	
 	for (var i=0; i < Entries.length; i++) {
 		var entry = Entries[i];
 		
+//		console.log("Checking path (" + entry.path + ") against prefix (" + prefix + ")")
+		
 		if ( entry.path.match(prefix) ) {
+			console.log("MATCH", entry, linkText)
 			var theseResults = findLinks(entry, linkText);
+			console.log("match results:", theseResults);
 			if (theseResults.length > 0) {
-				results.concat(theseResults);
+				console.log("concatenating results")
+				console.log("results prior:", results)
+				results = results.concat(theseResults);
+				console.log("results after:", results)				
 			}
 		}
 	}
+	
+	console.log("results:", results)
 	
 	return results
 }
@@ -151,8 +166,10 @@ function findLinks(entry, linkText) {
 	for(var i=0; i < entry.links.length; i++) { 
 		var link = entry.links[i];
 		match = link.name.match(linkText);
+		console.log("match name(" + link.name + ") and text(" + linkText + ")")
 
 		if ( match ) {
+			console.log("match!");
 			var thisMatch = match[0];
 			var name = [];
 			var index = link.name.indexOf(thisMatch);
@@ -179,6 +196,7 @@ function findLinks(entry, linkText) {
 				"description" : description
 			}
 			
+			console.log("this match result:", result)
 			results.push(result);
 		}
 
@@ -274,7 +292,7 @@ function fetchLinks(entryIndex, path) {
 					parseLinks(index, sourceURL, xhr.responseText);
 				}
 			}
-		}(entryIndex, url)
+		}(entryIndex, path)
 	);
     xhr.open('GET', url, true);
     xhr.send();			
