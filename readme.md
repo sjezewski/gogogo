@@ -2,7 +2,12 @@
 
 Go pkg omni-bar search.
 
+Search packages:
+
 <img src='https://github.com/sjezewski/gogogo/raw/master/doc/screenshot.png'/>
+
+Search by function (and see function signatures in the preview!) :
+
 <img src='https://github.com/sjezewski/gogogo/raw/master/doc/functions-screenshot.png'/>
 
 ### Install ###
