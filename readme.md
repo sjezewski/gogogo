@@ -12,7 +12,7 @@ Search by function (and see function signatures in the preview!) :
 
 ### Install ###
 
-[Download](https://github.com/sjezewski/gogogo/raw/master/gogogo.crx) the extension -- chrome will auto-prompt you to install it.
+[Download](http://bit.ly/GAaag5) the extension -- chrome will auto-prompt you to install it.
 
 ### Use ###
 
