@@ -1,11 +1,8 @@
-var Entries = [];
+//var Entries = [];
 var LoadedEntries = [];
-var Parsed = false;
+//var Parsed = false;
 
 function parseDocList(raw) {
-  if (Parsed) {
-    return
-  }
   
   var rawHTML = raw.match(/<table.*?>([\s\S]*?)<\/table>/)[1];
   var docTable = document.createElement("table");
@@ -17,11 +14,10 @@ function parseDocList(raw) {
     var entry = entries[i];
     description = getDescription(entry);
     var href = entry.getAttribute('href');
-    Entries.push({'path': href, 'name': entry.innerText, 'desc' : description});
+    config.Entries.push({'path': href, 'name': entry.innerText, 'desc' : description});
     fetchLinks(i, href);
   }	
   
-  Parsed = true;
   config.LastUpdated = new Date();
 }
 
@@ -31,7 +27,7 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
   doc.innerHTML = rawDoc;
   
   var links = doc.querySelectorAll("#content > h2[id], #content > h3[id]");
-  var entry = Entries[entryIndex];
+  var entry = config.Entries[entryIndex];
   var foundLink = false;
   
   for(var i=0; i < links.length; i++){
@@ -71,7 +67,7 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
     }
   }
   LoadedEntries.push(entryIndex);
-  console.log("Loaded " + 100*(LoadedEntries.length / Entries.length) + "%");
+  console.log("Loaded " + 100*(LoadedEntries.length / config.Entries.length) + "%");
 }
 
 function getDescription(entry) {

@@ -5,6 +5,7 @@
   "background_page": "background.html",
   "permissions": [
     "http://golang.org/*",
+    "http://weekly.golang.org/*",
      "tabs"
    ],
   "icons": {

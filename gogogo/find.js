@@ -3,8 +3,8 @@ function findLinkMatches(prefix, linkText) {
   
   results = []; // TODO: Make local after debugging
   
-  for (var i=0; i < Entries.length; i++) {
-    var entry = Entries[i];
+  for (var i=0; i < config.Entries.length; i++) {
+    var entry = config.Entries[i];
     
     if ( entry.path.match(prefix) ) {
       var theseResults = findLinks(entry, linkText);
@@ -74,8 +74,8 @@ function findLinks(entry, linkText) {
 function findMatches(searchTerm) {
   var matches = [];	
   // Dumb search
-  for(var i=0; i < Entries.length; i++) {
-    var entry = Entries[i];
+  for(var i=0; i < config.Entries.length; i++) {
+    var entry = config.Entries[i];
     match = entry.path.match(searchTerm);
     if (match) {
       var thisMatch = match[0];

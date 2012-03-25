@@ -1,13 +1,13 @@
 var config = {};
-// For now, config === defaults
-config = defaults;
-
 
 var defaults = {
   "updateRule" : "weekly",
   "updateDay" : "Sunday",
-  "source" : "weekly"
+  "source" : "stable"
 };
+
+// For now, config === defaults
+config = defaults;
 
 var sources = {
   "stable" : "golang.org",
@@ -31,13 +31,15 @@ chrome.omnibox.onInputChanged.addListener(
       suggest( findMatches(matches[0]) );	
     }
     
-  });
+  }
+);
 
 chrome.omnibox.onInputEntered.addListener(
   function(text) {
     console.log('inputEntered: ' + text);
     var root = sourceToURL(sources[config["source"]]);
     openTab(root + text);
-  });
+  }
+);
 
-fetchDocList();
+updateDefinitions();
