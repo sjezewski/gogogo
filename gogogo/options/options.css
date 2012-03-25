@@ -7,3 +7,15 @@ label {
     text-align: right;
     display: inline-block;
 }
+
+#updated {
+    display: none;
+}
+
+#definitions.loaded > #updated {
+    display: block;
+}
+
+#definitions.loaded > #percentage {
+    display: none;
+}

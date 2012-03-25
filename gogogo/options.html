@@ -8,6 +8,21 @@
 </head>
 
 <body>
+
+<h1> Info </h1>
+<div id='definitions'>
+  
+<div id='percentage'>
+  Loading Definitions : <span id='loadingPercentage'> </span>
+</div>
+<div id='updated'>
+  Definitions last updated : <span id='timestamp'> </span>
+</div>
+
+</div>
+
+<hr/>
+
 <h1>Options</h1>
 
 <form id='options' onsubmit='saveOptions()'>
@@ -56,20 +71,8 @@
   
 </form>
 
-<hr/>
-
-<h1> Info </h1>
-
-<div>
-  Loaded : <span id='loadingIndicator'> </span>
-</div>
-
-
 <script>
-  populateOptions();
+  init();
 </script>
 
-<hr>
-<address></address>
-<!-- hhmts start -->Last modified: Sun Mar 25 16:19:39 PDT 2012 <!-- hhmts end -->
 </body> </html>

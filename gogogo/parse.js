@@ -16,7 +16,6 @@ function parseDocList(raw) {
     fetchLinks(i, href);
   }	
   
-  config.LastUpdated = new Date();
 }
 
 function parseLinks(entryIndex, sourceURL, rawDoc){
@@ -66,7 +65,9 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
   }
   LoadedEntries.push(entryIndex);
   config.Loaded = LoadedEntries.length / config.Entries.length;
-  console.log("Loaded " + 100*config.Loaded + "%");
+  var percentage = (100*config.Loaded).toFixed(0);
+  console.log("Loaded " + percentage + "%");
+  localStorage["loadingPercentage"] = percentage;
 }
 
 function getDescription(entry) {
