@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<title> Gogogo Options </title>
+<script src='./options/options.js'></script>
+<link rel='stylesheet' href='./options/options.css'></link>
+</head>
+
+<body>
+<h1>Options</h1>
+
+<form id='options' onsubmit='saveOptions()'>
+
+  <h2> Definitions </h2>
+
+  <div>
+
+  <label for='Source'> Source: </label>
+  <select name='Source' type='text'>
+    <option value='stable'> Stable </option>
+    <option value='weekly'> Weekly </option>      
+  </select>
+
+  </div>
+
+  <div>
+  
+  <label for='UpdateRule'> Update Rule: </label>
+  <select name='UpdateRule' type='text' onchange='checkUpdateRule()'>
+    <option value='manual'> Manual </option>
+    <option value='weekly'> Weekly </option>      
+  </select>
+
+    <div id='UpdateTime' style='display:none'>
+  
+    <label for='UpdateTime'> Update Time: </label>  
+    <select name='UpdateTime' type='text'>
+      <option value='Sun'> Sunday </option>
+      <option value='Mon'> Monday </option>
+      <option value='Tue'> Tuesday </option>
+      <option value='Wed'> Wednesday </option>
+      <option value='Thu'> Thursday </option>
+      <option value='Fri'> Friday </option>
+      <option value='Sat'> Saturday </option>      
+    </select>
+
+    </div>
+  
+  </div>
+
+ 
+  <h2> Functional </h2>
+
+  <input type='checkbox'> Open results in new tab? </input>
+  
+</form>
+
+<hr/>
+
+<h1> Info </h1>
+
+<div>
+  Loaded : <span id='loadingIndicator'> </span>
+</div>
+
+
+<script>
+  populateOptions();
+</script>
+
+<hr>
+<address></address>
+<!-- hhmts start -->Last modified: Sun Mar 25 16:19:39 PDT 2012 <!-- hhmts end -->
+</body> </html>

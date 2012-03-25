@@ -1,0 +1,9 @@
+form div {
+    margin-left: 50px;
+}
+
+label {
+    width: 100px;
+    text-align: right;
+    display: inline-block;
+}

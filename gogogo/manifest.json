@@ -2,6 +2,7 @@
   "name": "Go package search",
   "version": "1.0",
   "omnibox": { "keyword" : "gpkg" },
+  "options_page": "options.html",
   "background_page": "background.html",
   "permissions": [
     "http://golang.org/*",

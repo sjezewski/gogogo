@@ -23,6 +23,11 @@ function initializeConfig() {
   config.Loaded = 0;
 }
 
+// TODO : Compare the localstorage config against the local config for any changes.
+//        If the source has changed, force a re-load. Its lame that I have to wait till
+//        the user requests something w the new source before updating. The alternatives
+//        are polling or message passing.
+
 chrome.omnibox.onInputChanged.addListener(
   function(text, suggest) {
     var matches = text.split("#");
