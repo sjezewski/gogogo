@@ -16,6 +16,11 @@ function findLinkMatches(prefix, linkText) {
   }
 
   console.log("results:", results)	
+
+  if (config.Loaded < 1) {
+    results = [loadingMessage()].concat(matches);
+  }
+
   return results
 }
 
@@ -46,7 +51,8 @@ function findLinks(entry, linkText) {
       if (link.type == "func") {
 	description += link.signature;
       } else {
-	description += link.name;				
+	// TODO: For functions, I need to highlight part of the signature
+	description += name;
       }
       
       if (description.length > 77) {
@@ -102,9 +108,23 @@ function findMatches(searchTerm) {
     
     if (matches.length > 5) {
       // Only 5 are shown anyway
-      return matches
+      //return matches
+      break;
     }
   }
-  
+ 
+  if (config.Loaded < 1) {
+    matches = [loadingMessage()].concat(matches);
+  }
+ 
   return matches;
+}
+
+function loadingMessage() {
+  var result = {
+    "content" : "",
+    "description" : " ---- Warning : Still loading definitions (" + (100*config.Loaded).toFixed(0) + "%) ---- "
+  }
+
+  return result;
 }

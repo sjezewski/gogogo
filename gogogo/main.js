@@ -18,8 +18,10 @@ function sourceToURL(source) {
   return "http://" + source + "/pkg/";
 }
 
-config.LastUpdated = "?";
-config.UpdateRule = "";
+function initializeConfig() {
+  config.LastUpdated = "?";
+  config.Loaded = 0;
+}
 
 chrome.omnibox.onInputChanged.addListener(
   function(text, suggest) {
@@ -42,4 +44,5 @@ chrome.omnibox.onInputEntered.addListener(
   }
 );
 
+initializeConfig();
 updateDefinitions();

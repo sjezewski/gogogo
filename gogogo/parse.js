@@ -1,6 +1,4 @@
-//var Entries = [];
 var LoadedEntries = [];
-//var Parsed = false;
 
 function parseDocList(raw) {
   
@@ -67,7 +65,8 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
     }
   }
   LoadedEntries.push(entryIndex);
-  console.log("Loaded " + 100*(LoadedEntries.length / config.Entries.length) + "%");
+  config.Loaded = LoadedEntries.length / config.Entries.length;
+  console.log("Loaded " + 100*config.Loaded + "%");
 }
 
 function getDescription(entry) {
