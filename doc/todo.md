@@ -2,12 +2,11 @@
 
 ## User Configuration ##
 
-- hook in update mechanism (manual / weekly / daily / etc)
+- hook in auto update mechanism (manual / weekly / daily / etc)
 - adjust number of suggestions (although chrome may limit it to 5?)
 
 ## General ##
 
-- Update parsing logic to play nice weekly pages (X)
 - make options page look nice
 - Load url in same tab (maybe make user pref as well)
 - Add highlighting to the function signatures
@@ -18,8 +17,4 @@
 
 ## Bugs ##
 
-- When selecting the weekly source:
-  - links are messed up (X)
-  - it doesn't seem to do a proper substring match on function signatures -- actually problem w other link types not functions (X)
-- When I update I think I'm not resetting the entries properly (X)
 - Extra urls (that are relative image urls) getting requested when updating
