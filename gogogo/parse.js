@@ -7,26 +7,47 @@ function parseDocList(raw) {
   docTable.innerHTML = rawHTML;
   
   var entries = docTable.querySelectorAll("td > a");
+
+  if (entries[0].getAttribute('href') == "..") {
+    entires = Array.prototype.slice.call(entries, 1, entries.length);
+  }
   
   for(var i = 0; i < entries.length; i++ ) {
     var entry = entries[i];
     description = getDescription(entry);
     var href = entry.getAttribute('href');
+
     config.Entries.push({'path': href, 'name': entry.innerText, 'desc' : description});
     fetchLinks(i, href);
   }	
   
 }
 
+var linkSelectors = {
+  "stable" : "#content > h2[id], #content > h3[id]",
+  "weekly" : "#manual-nav > h2[id], #manual-nav > h3[id]"
+};
+
+/* 
+ * Links are functions / constants / variables
+ */
+
 function parseLinks(entryIndex, sourceURL, rawDoc){
   
   var doc = document.createElement("root");
   doc.innerHTML = rawDoc;
   
-  var links = doc.querySelectorAll("#content > h2[id], #content > h3[id]");
+  var links = doc.querySelectorAll(linkSelectors[config.source]);
   var entry = config.Entries[entryIndex];
   var foundLink = false;
   
+  if (entry === undefined) {
+    console.log("Entry undefined?");
+    console.log(entry, entryIndex, sourceURL, rawDoc);
+  }
+
+//  console.log("Got " + links.length + " links for entry:" + entryIndex + " : " + entry.href);
+
   for(var i=0; i < links.length; i++){
     var link = links[i];
     

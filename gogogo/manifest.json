@@ -10,6 +10,8 @@
      "tabs"
    ],
   "icons": {
-    "16": "logo.png"
+    "16": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
   }
 }

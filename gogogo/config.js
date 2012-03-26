@@ -3,7 +3,7 @@ var config = {};
 var defaults = {
   "updateRule" : "manual",
   "updateDay" : "Sunday",
-  "source" : "stable"
+  "source" : "weekly"
 };
 
 var sources = {
