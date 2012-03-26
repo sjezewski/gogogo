@@ -13,8 +13,9 @@ function fetchDocList() {
 function fetchLinks(entryIndex, path) {
   var url = sourceToURL(sources[config["source"]]) + path;
   
+  // console.log("Fetching links for : " + url);
+  // TODO: Low pri bug. I'm seeing extra 'GET's to urls like : chrome-extension://aeecgkpjkniokomoipgicpgaipdoglen/doc/gopher/pkg.png 
 
-  console.log("Fetching links for : " + url);
   var xhr = new XMLHttpRequest();
   xhr.addEventListener(
     'readystatechange', 
