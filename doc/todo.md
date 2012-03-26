@@ -7,6 +7,7 @@
 
 ## General ##
 
+- Add next scheduled update time to options page (if not manual)
 - Add highlighting to the function signatures
 - Perhaps overide the default new tab page (to display which host you're pointed at / if the definitions are loaded)
   - Maybe I could update it w all the results instead of the first 5

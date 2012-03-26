@@ -3,6 +3,7 @@ var config = {};
 var defaults = {
   "updateRule" : "manual",
   "updateDay" : "Sunday",
+  "updateHour" : "",
   "source" : "weekly"
 };
 
@@ -31,6 +32,7 @@ function initializeConfig(newConfig) {
   }
 
   newConfig.sourceURL = sourceToURL(sources[newConfig.source]);
+  newConfig.nextUpdate = checkForScheduledUpdate();
 
   config = newConfig;
 }

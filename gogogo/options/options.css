@@ -169,10 +169,13 @@ label {
     display: inline-block;
 }
 
-#UpdateTime {
+#UpdateTimes {
 border-radius: 5px;
 background-color: #CCC;
 margin-left: 80px;
-width: 260px;
+padding:10px;
 }
 
+#UpdateTimes > div { 
+width: 260px;
+}

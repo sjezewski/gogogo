@@ -1,7 +1,8 @@
 var inputs = {
   'source' : "select[name='Source']",
   'updateRule' : "select[name='UpdateRule']",
-  'updateTime' : "select[name='UpdateTime']",
+  'updateDay' : "select[name='UpdateDay']",
+  'updateHour' : "select[name='UpdateHour']",
   'newTab' : "input[name='newTab']"
 };
 
@@ -30,12 +31,21 @@ function updateLoadingPercentage(sourceInfo) {
 
 function checkUpdateRule() {
   var updateRule = document.querySelector("select[name='UpdateRule']");
-  var updateTime = document.querySelector("#UpdateTime");
+  var updateTimes = document.querySelector("#UpdateTimes");
+  var updateDay = document.querySelector("#UpdateDay");
 
-  if (updateRule.value == 'weekly') {
-    updateTime.style.display = 'block';
-  } else {
-    updateTime.style.display = 'none';
+  switch(updateRule.value) {
+  case 'manual' :
+    updateTimes.style.display = 'none';
+    break;
+  case 'daily' :
+    updateTimes.style.display = 'block';
+    updateDay.style.display = 'none';
+    break;
+  case 'weekly' :
+    updateTimes.style.display = 'block';
+    updateDay.style.display = 'block';
+    break;
   }
 
 }
