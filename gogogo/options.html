@@ -19,7 +19,17 @@
 </div>
 </div>
 
-<h1> Definitions </h1>
+<div id='header'>
+  <img class='logo' src='./logo.png'/>
+  <div class='text'>
+    <h1> Gogogo :: Configuration Options </h1>
+  </div>
+
+</div>
+
+<hr/>
+
+<h2> Definitions </h2>
 <div id='definitions' class='container'>
   
   <div id='percentage'>
@@ -45,11 +55,11 @@
 
 <hr/>
 
-<h1>Options</h1>
+<h2>Options</h2>
 
 <form id='options' onsubmit='saveOptions(evt)'>
 
-  <h2> Definitions </h2>
+  <h3> Definitions </h3>
 
   <div>
 
@@ -87,10 +97,15 @@
   </div>
 
  
-  <h2> Functional </h2>
+  <h3> Functional </h3>
 
-  <input name='newTab' type='checkbox'> Open results in new tab? </input>
+  <div>
+  
+    <label for='newTab'> Open results in new tab? </label>
+    <input name='newTab' type='checkbox'> </input>
 
+  </div>
+  
   <input type='submit' value='Save and Update'></input>
   
 </form>

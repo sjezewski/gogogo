@@ -5,7 +5,7 @@ body {
 /*    font-family: courier;*/
 }
 
-body > h1, body > .container {
+body > h2, body > .container {
     margin: 0px 10px;
 }
 
@@ -13,15 +13,27 @@ form div {
     margin-left: 50px;
 }
 
-label {
-    width: 100px;
-    text-align: right;
-    display: inline-block;
+/* Header */
+
+#header {
+    margin-top: 5px;
 }
 
-#updated {
-    display: none;
+#header > * {
+    display: inline-block;
+    vertical-align: top;
 }
+
+.logo{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.text > h1 {
+    margin: 30px 20px;
+}
+
+
 
 /* Message */
 #messageContainer {
@@ -85,6 +97,14 @@ label {
 
 /* Info */
 
+#updated {
+    display: none;
+}
+
+#definitions {
+    position: relative;
+}
+
 #definitions.loaded > #updated {
     display: block; 
 }
@@ -114,7 +134,45 @@ label {
 
 
 #definitions > form {
-position: absolute;
+/*position: absolute;
 top: 0px;
-left: 180px;
+left: 180px;*/
+    height: 20px;
 }
+
+#definitions > form > input[type='submit'] {
+right: 0px;
+position: absolute;
+}
+
+/* Options Form */
+
+#options{
+    padding: 20px;
+}
+
+#options > h3 {
+    margin-left: 50px;
+}
+
+#options > div {
+    margin-left: 100px;
+}
+
+#options > input[type='submit'] {
+    float: right;
+}
+
+label {
+    width: 160px;
+    text-align: right;
+    display: inline-block;
+}
+
+#UpdateTime {
+border-radius: 5px;
+background-color: #CCC;
+margin-left: 80px;
+width: 260px;
+}
+
