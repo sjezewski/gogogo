@@ -6,7 +6,6 @@ var inputs = {
 };
 
 function updateLoadingPercentage(sourceInfo) {
-  console.log("from source:" + sourceInfo);
 
   var loadingPercentage = document.querySelector("#loadingPercentage");
   var percentage = localStorage["loadingPercentage"];
@@ -94,12 +93,16 @@ function init() {
   chrome.extension.sendRequest(
     {type: 'getConfig'}, 
     function(response) {
-      console.log("Got response:");
+      console.log("Got config response:");
       console.log(response);
 
       for(var inputName in inputs) {
 	var input = document.querySelector(inputs[inputName]);
-	input.value = response[inputName];
+	if (input.type == 'checkbox') {
+	  input.checked = response.config[inputName];
+	} else {
+	  input.value = response.config[inputName];
+	}
       } 
       var config = response.config;
       config.firstLoad = true;
