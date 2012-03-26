@@ -1,6 +1,6 @@
 ## Gogogo ##
 
-Go pkg omni-bar search.
+Go pkg omni-bar search. By default it points to weekly ... but you can change this in the settings.
 
 Search packages:
 
@@ -24,7 +24,3 @@ Search by function (and see function signatures in the preview!) :
   - The matching function signatures will autopopulate  
 - Hit enter to navigate to that documentation page
 
-### Todo ###
-
-- Load result in current tab if its a new tab
-- Capture 'tab' to complete words along the path
