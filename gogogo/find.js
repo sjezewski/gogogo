@@ -122,7 +122,7 @@ function findMatches(searchTerm) {
 function loadingMessage() {
   var result = {
     "content" : "",
-    "description" : " ---- Warning : Still loading definitions (" + (100*config.Loaded).toFixed(0) + "%) ---- "
+    "description" : "<dim>  Warning : gogogo : Still loading definitions (" + (100*config.Loaded).toFixed(0) + "%) </dim>"
   }
 
   return result;
