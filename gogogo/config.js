@@ -29,7 +29,11 @@ function initializeConfig(newConfig) {
     }
   }
 
-  newConfig.nextUpdate = config.nextUpdate; // If I need to string along more than one field, I'll make this a loop
+  ["lastUpdated", "nextUpdate"].forEach(
+    function(field) {
+      newConfig[field] = config[field];
+    }
+  )
 
   newConfig.sourceURL = sourceToURL(sources[newConfig.source]);
 

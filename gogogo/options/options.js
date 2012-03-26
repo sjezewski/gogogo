@@ -71,9 +71,9 @@ function saveOptions(evt) {
       console.log(response);
       if (response.updating) {
 	display("Re-fetching definitions", {timing: 'persistent'});
-	updateLoadingPercentage(response.config);
+	updateLoadingPercentage(false);
       } else {
-	display("Saved!");
+	updateComplete(false, "Saved!"); 
       }
 
     }
@@ -116,7 +116,7 @@ function init() {
 }
 
 // In lieu of receiving a message from the background page upon completion. Request the latest config when I know the updating is done
-function updateComplete(firstLoad) {
+function updateComplete(firstLoad, customMessage) {
   chrome.extension.sendRequest(
     {type: 'getConfig'}, 
     function(response) {
@@ -133,10 +133,21 @@ function updateComplete(firstLoad) {
       sourceElem.innerText = config.source + " (" + config.sourceURL + ")";
 
       var scheduled = document.querySelector("#scheduled");
-      scheduled.innerText = config.nextUpdate;
+
+      console.log("Update rule:" + config.updateRule);
+
+      if (config.updateRule == 'manual') {
+	scheduled.innerText = "N/A";
+      } else {      
+	scheduled.innerText = new Date(config.nextUpdate);
+      }
 
       if (!firstLoad) {
-	display("Definitions updated!", {timing: 'temp'});
+	if (customMessage) {
+	  display(customMessage);
+	} else {
+	  display("Definitions updated!", {timing: 'temp'});
+	}
       }
     }
   );

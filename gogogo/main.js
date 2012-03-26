@@ -47,7 +47,7 @@ chrome.extension.onRequest.addListener(
 	updateDefinitions();
       }
 
-      setScheduledUpdate();
+      setScheduledUpdate(new Date());
 
       sendResponse({message: "Configuration saved.", updating: requiresUpdate, config: config});
       break;
