@@ -2,12 +2,10 @@
 
 ## User Configuration ##
 
-- hook in auto update mechanism (manual / weekly / daily / etc)
 - adjust number of suggestions (although chrome may limit it to 5?)
 
 ## General ##
 
-- Add next scheduled update time to options page (if not manual)
 - Add highlighting to the function signatures
 - Perhaps overide the default new tab page (to display which host you're pointed at / if the definitions are loaded)
   - Maybe I could update it w all the results instead of the first 5
@@ -17,6 +15,7 @@
 - It would be better if I sent a message back to the options page when done updating the definitions
   - But I'll still need to poll since I don't want to pass a message for every single update
   - If I have a message listener on the options page I can also handle errors nicely
+- Would also be good to have a listener for scheduled updates (so you can watch the option page and dont have to refresh it to see the progress)
 
 ## Bugs ##
 

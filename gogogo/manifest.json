@@ -1,6 +1,6 @@
 {
   "name": "Go package search",
-  "version": "1.0",
+  "version": "1.1",
   "omnibox": { "keyword" : "gpkg" },
   "options_page": "options.html",
   "background_page": "background.html",
