@@ -2,15 +2,7 @@
 
 ## User Configuration ##
 
-- add options page (X)
-- report last update time (X)
-- add 'update' button on options page
-- point at stable / weekly
-- hook in user defined options when updating
-  - send config in message to background page
-  - make a request listener on background page that responds w the current settings
-- get options page to pass message to background page when source has changed / update requested (this is better than lazy loading)
-- adjust update mechanism (manual / weekly / daily / etc)
+- hook in update mechanism (manual / weekly / daily / etc)
 - adjust number of suggestions (although chrome may limit it to 5?)
 
 ## General ##
