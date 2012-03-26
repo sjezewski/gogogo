@@ -22,7 +22,9 @@ function updateLoadingPercentage(sourceInfo) {
     timestamp.innerText = localStorage["lastUpdated"];
     var sourceElem = document.querySelector("#source");
     sourceElem.innerText = sourceInfo.source + " (" + sourceInfo.sourceURL + ")";
-    display("Definitions updated!", {temp: true});
+    if (!sourceInfo.firstLoad) {
+      display("Definitions updated!", {temp: true});
+    }
   }
 
 }
@@ -99,8 +101,9 @@ function init() {
 	var input = document.querySelector(inputs[inputName]);
 	input.value = response[inputName];
       } 
-      
-      updateLoadingPercentage(response.config);
+      var config = response.config;
+      config.firstLoad = true;
+      updateLoadingPercentage(config);
       checkUpdateRule();
     }
   );
