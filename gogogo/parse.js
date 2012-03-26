@@ -41,13 +41,6 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
   var entry = config.Entries[entryIndex];
   var foundLink = false;
   
-  if (entry === undefined) {
-    console.log("Entry undefined?");
-    console.log(entry, entryIndex, sourceURL, rawDoc);
-  }
-
-//  console.log("Got " + links.length + " links for entry:" + entryIndex + " : " + entry.href);
-
   for(var i=0; i < links.length; i++){
     var link = links[i];
     

@@ -10,7 +10,9 @@ function updateDefinitions() {
   localStorage["loadingPercentage"] = 0;
   config.Loading = true;
 
-  config._Entries = config.Entries;
+  // TODO : Later I'll revert if there's an error
+  // config._Entries = config.Entries;
+
   config.Entries = [];
   LoadedEntries = [];
 

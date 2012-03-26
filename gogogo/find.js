@@ -15,8 +15,6 @@ function findLinkMatches(prefix, linkText) {
     }
   }
 
-  console.log("results:", results)	
-
   if (config.Loaded < 1) {
     results = [loadingMessage()].concat(matches);
   }
