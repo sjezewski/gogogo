@@ -9,7 +9,7 @@ function parseDocList(raw) {
   var entries = docTable.querySelectorAll("td > a");
 
   if (entries[0].getAttribute('href') == "..") {
-    entires = Array.prototype.slice.call(entries, 1, entries.length);
+    entries = Array.prototype.slice.call(entries, 1, entries.length);
   }
   
   for(var i = 0; i < entries.length; i++ ) {

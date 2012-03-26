@@ -13,6 +13,8 @@ function fetchDocList() {
 function fetchLinks(entryIndex, path) {
   var url = sourceToURL(sources[config["source"]]) + path;
   
+
+  console.log("Fetching links for : " + url);
   var xhr = new XMLHttpRequest();
   xhr.addEventListener(
     'readystatechange', 
