@@ -2,7 +2,6 @@ function openTab(url) {
   var args = {'url' : url, 'selected':true};
 
   if (config.newTab) {
-//    chrome.tabs.create(args, function(tab) {myTab = tab;})
     chrome.tabs.create(args)
   } else {
 
