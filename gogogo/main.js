@@ -36,11 +36,14 @@ chrome.extension.onRequest.addListener(
 
       if (config.source != newConfig.source) {
 	requiresUpdate = true;
+      } else {
+	newConfig.Entries = config.Entries; // TODO: Keep definitions separate
       }
 
       initializeConfig(newConfig);
 
       if (requiresUpdate) {
+	config.Loaded = 0; // Kind of silly I have to put it here. But there is a case where I update and don't need to reload
 	updateDefinitions();
       }
 

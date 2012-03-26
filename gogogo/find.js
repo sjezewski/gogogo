@@ -16,7 +16,7 @@ function findLinkMatches(prefix, linkText) {
   }
 
   if (config.Loaded < 1) {
-    results = [loadingMessage()].concat(matches);
+    results = [loadingMessage()].concat(results);
   }
 
   return results

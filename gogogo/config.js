@@ -21,8 +21,8 @@ function initializeConfig(newConfig) {
   }
 
   newConfig.LastUpdated = "?";
-  newConfig.Loaded = 0;
   newConfig.Initialized = true;
+
 
   for (var fieldName in defaults) {
     if (!newConfig[fieldName]) {

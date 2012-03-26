@@ -8,7 +8,6 @@
 ## General ##
 
 - make options page look nice
-- Load url in same tab (maybe make user pref as well)
 - Add highlighting to the function signatures
 - Perhaps overide the default new tab page (to display which host you're pointed at / if the definitions are loaded)
   - Maybe I could update it w all the results instead of the first 5
@@ -19,3 +18,4 @@
 ## Bugs ##
 
 - Extra urls (that are relative image urls) getting requested when updating
+- If I go to the options page and change the options before the intial load is done, things get messed up (X)

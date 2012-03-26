@@ -1,8 +1,23 @@
-var myTab;
-
 function openTab(url) {
   var args = {'url' : url, 'selected':true};
-  chrome.tabs.create(args, function(tab) {myTab = tab;})
+
+  if (config.newTab) {
+//    chrome.tabs.create(args, function(tab) {myTab = tab;})
+    chrome.tabs.create(args)
+  } else {
+
+    chrome.tabs.getSelected(
+      null, 
+      function(tab) {
+	chrome.tabs.update(
+	  tab.id, 
+	  {"url" : url}
+	);
+	
+      }
+    );
+
+  }
 }
 
 function updateDefinitions() {
