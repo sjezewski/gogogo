@@ -1,9 +1,9 @@
 var config = {};
 
 var defaults = {
-  "updateRule" : "manual",
-  "updateDay" : "Sunday",
-  "updateHour" : "",
+  "updateRule" : "daily",
+  "updateDay" : "Monday",
+  "updateHour" : 3,
   "source" : "weekly"
 };
 

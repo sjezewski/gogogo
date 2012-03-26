@@ -58,7 +58,7 @@ chrome.extension.onRequest.addListener(
 function initialize() {
   initializeConfig();
   updateDefinitions();
-  setScheduledUpdate();
+  setScheduledUpdate(new Date());
 }
 
 initialize();

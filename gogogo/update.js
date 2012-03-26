@@ -18,7 +18,7 @@ function checkForScheduledUpdate() {
 
   if (now.getTime() > config.nextUpdate) {
     console.log("Time to update!");
-    updateDefintions();
+    updateDefinitions();
     setScheduledUpdate(now);
   } else if (config.updateRule != "manual") {
     var increment = millisecondsToNextHour(now);
