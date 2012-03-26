@@ -1,7 +1,7 @@
 function findLinkMatches(prefix, linkText) {
   // Display link results if prefix is a substr of an entry's path
   
-  results = []; // TODO: Make local after debugging
+  var results = [];
   
   for (var i=0; i < config.Entries.length; i++) {
     var entry = config.Entries[i];
