@@ -12,10 +12,9 @@
 - Perhaps overide the default new tab page (to display which host you're pointed at / if the definitions are loaded)
   - Maybe I could update it w all the results instead of the first 5
   - Not sure if its really that useful...
-- Can I capture tabs and do tab completion?
+- Can I capture `tab`s and do tab completion?
 - Add error handling when fetching fails (e.g. when offline)
 
 ## Bugs ##
 
 - Extra urls (that are relative image urls) getting requested when updating
-- If I go to the options page and change the options before the intial load is done, things get messed up (X)
