@@ -22,3 +22,4 @@
   - links are messed up (X)
   - it doesn't seem to do a proper substring match on function signatures
 - When I update I think I'm not resetting the entries properly
+- Extra urls (that are relative image urls) getting requested when updating
