@@ -4,14 +4,13 @@ function display(message, options) {
   }
   
   var messageElem = document.querySelector("#message");
-
-
   messageElem.innerText = message;
 
   if (options.temp) {
     setTimeout(
       1000, 
       function() {
+	var messageElem = document.querySelector("#message");
 	messageElem.innerText = "";
       }
     );

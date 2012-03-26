@@ -24,12 +24,11 @@ chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
     switch(request.type) {
     case 'update':
-      var newConfig = request.config;
       updateDefinitions();      
-      sendResponse({message:"Updating definitions", updating: true});
+      sendResponse({message:"Updating definitions", updating: true, config: config});
       break;
     case 'getConfig' :
-      sendResponse(config);
+      sendResponse({message: "Got config", config: config});
       break;      
     case 'saveConfig' :
       var newConfig = request.config;
@@ -45,7 +44,7 @@ chrome.extension.onRequest.addListener(
 	updateDefinitions();
       }
 
-      sendResponse({message: "Configuration saved.", updating: requiresUpdate});
+      sendResponse({message: "Configuration saved.", updating: requiresUpdate, config: config});
       break;
     }
   }

@@ -6,9 +6,6 @@ var defaults = {
   "source" : "stable"
 };
 
-// For now, config === defaults
-// config = defaults;
-
 var sources = {
   "stable" : "golang.org",
   "weekly" : "weekly.golang.org"
@@ -32,6 +29,8 @@ function initializeConfig(newConfig) {
       newConfig[fieldName] = defaults[fieldName];
     }
   }
+
+  newConfig.sourceURL = sourceToURL(newConfig.source);
 
   config = newConfig;
 }

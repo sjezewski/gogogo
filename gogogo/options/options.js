@@ -5,12 +5,9 @@ var inputs = {
   'newTab' : "input[name='newTab']"
 };
 
-function init() {
-  populateConfig();
-  updateLoadingPercentage();
-}
+function updateLoadingPercentage(sourceInfo) {
+  console.log("from source:" + sourceInfo);
 
-function updateLoadingPercentage() {
   var loadingPercentage = document.querySelector("#loadingPercentage");
   var percentage = localStorage["loadingPercentage"];
 
@@ -18,11 +15,14 @@ function updateLoadingPercentage() {
 
   if (percentage < 100) {
     document.querySelector('#definitions').className = "";
-    setTimeout(updateLoadingPercentage, 50);
+//    setTimeout(function(src){return function(){updateLoadingPercentage(source)}}(sourceInfo), 50);
+    setTimeout(function(){updateLoadingPercentage(sourceInfo)}, 50);
   } else {
     document.querySelector('#definitions').className = "loaded";
     var timestamp = document.querySelector("#timestamp");
     timestamp.innerText = localStorage["lastUpdated"];
+    var sourceElem = document.querySelector("#source");
+    sourceElem.innerText = sourceInfo.source + " (" + sourceInfo.sourceURL + ")";
     display("Definitions updated!", {temp:true});
   }
 
@@ -43,13 +43,14 @@ function checkUpdateRule() {
 function update(evt) {
   evt.preventDefault();
   chrome.extension.sendRequest(
-    {type: 'update', config: collectConfig()}, 
+    {type: 'update'}, 
     function(response) {
       console.log("Got response:");
       console.log(response);
       if (response.updating) {
-	updateLoadingPercentage();
+	updateLoadingPercentage(response.config);
       }
+      display(response.message);
     }
   );
 }
@@ -67,7 +68,7 @@ function saveOptions(evt) {
       console.log(response);
       if (response.updating) {
 	display("Re-fetching definitions");
-	updateLoadingPercentage();
+	updateLoadingPercentage(response.config);
       } else {
 	display("Saved!");
       }
@@ -88,17 +89,19 @@ function collectConfig() {
   return config;
 }
 
-function populateConfig() {
+function init() {
   chrome.extension.sendRequest(
     {type: 'getConfig'}, 
     function(response) {
       console.log("Got response:");
       console.log(response);
+
       for(var inputName in inputs) {
 	var input = document.querySelector(inputs[inputName]);
 	input.value = response[inputName];
       } 
-
+      
+      updateLoadingPercentage(response.config);
       checkUpdateRule();
     }
   );
