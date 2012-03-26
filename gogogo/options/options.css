@@ -86,14 +86,14 @@ label {
 /* Info */
 
 #definitions.loaded > #updated {
-    display: block;
+    display: block; 
 }
 
 #definitions.loaded > #percentage {
     display: none;
 }
 
-#definitions > div {
+#definitions > div, #definitions > form {
     margin: 10px 20px;
 }
 
@@ -103,7 +103,7 @@ label {
 
 #definitions .label {
     display:inline-block;
-    width: 180px;
+    width: 120px;
     text-align: right;
 }
 
@@ -112,7 +112,9 @@ label {
     margin-left: 10px;
 }
 
-/* Options */
 
-
-
+#definitions > form {
+position: absolute;
+top: 0px;
+left: 180px;
+}

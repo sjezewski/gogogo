@@ -18,3 +18,4 @@
 ## Bugs ##
 
 - Extra urls (that are relative image urls) getting requested when updating
+- If you hit update definitions while its updating ... it thinks its done and won't update again
