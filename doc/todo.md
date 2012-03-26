@@ -14,6 +14,9 @@
   - Not sure if its really that useful...
 - Can I capture `tab`s and do tab completion?
 - Add error handling when fetching fails (e.g. when offline)
+- It would be better if I sent a message back to the options page when done updating the definitions
+  - But I'll still need to poll since I don't want to pass a message for every single update
+  - If I have a message listener on the options page I can also handle errors nicely
 
 ## Bugs ##
 
