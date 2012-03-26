@@ -15,7 +15,6 @@ function updateLoadingPercentage(sourceInfo) {
 
   if (percentage < 100) {
     document.querySelector('#definitions').className = "";
-//    setTimeout(function(src){return function(){updateLoadingPercentage(source)}}(sourceInfo), 50);
     setTimeout(function(){updateLoadingPercentage(sourceInfo)}, 50);
   } else {
     document.querySelector('#definitions').className = "loaded";
@@ -23,7 +22,7 @@ function updateLoadingPercentage(sourceInfo) {
     timestamp.innerText = localStorage["lastUpdated"];
     var sourceElem = document.querySelector("#source");
     sourceElem.innerText = sourceInfo.source + " (" + sourceInfo.sourceURL + ")";
-    display("Definitions updated!", {temp:true});
+    display("Definitions updated!", {temp: true});
   }
 
 }

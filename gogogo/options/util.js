@@ -7,12 +7,12 @@ function display(message, options) {
   messageElem.innerText = message;
 
   if (options.temp) {
-    setTimeout(
-      1000, 
+    setTimeout( 
       function() {
 	var messageElem = document.querySelector("#message");
 	messageElem.innerText = "";
-      }
+      },
+      1000
     );
   }
   
