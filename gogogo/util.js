@@ -35,6 +35,7 @@ function updateDefinitions() {
   // TODO: Revert to old entries list if there is an error
   config.Loading = false;
 
-  config.lastUpdated = new Date();
-  localStorage["lastUpdated"] = String(config.lastUpdated);
+  config.lastUpdated = (new Date()).getTime();
+//  localStorage["lastUpdated"] = String(config.lastUpdated);
+
 }

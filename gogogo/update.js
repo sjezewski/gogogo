@@ -26,7 +26,6 @@ function checkForScheduledUpdate() {
     setTimeout(checkForScheduledUpdate, increment);
   }
 
-  return config.nextUpdate;
 }
 
 function setScheduledUpdate(now) {
@@ -41,6 +40,8 @@ function setScheduledUpdate(now) {
   }
 
   checkForScheduledUpdate(); // Make sure I only have a single 'thread' of timeouts checking
+
+  return config.nextUpdate;
 }
 
 function millisecondsToNextHour(date) {

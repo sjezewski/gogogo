@@ -47,11 +47,18 @@ chrome.extension.onRequest.addListener(
 	updateDefinitions();
       }
 
+      setScheduledUpdate();
+
       sendResponse({message: "Configuration saved.", updating: requiresUpdate, config: config});
       break;
     }
   }
 );
 
-initializeConfig();
-updateDefinitions();
+function initialize() {
+  initializeConfig();
+  updateDefinitions();
+  setScheduledUpdate();
+}
+
+initialize();

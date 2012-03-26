@@ -21,9 +21,7 @@ function initializeConfig(newConfig) {
     newConfig = {};
   }
 
-  newConfig.LastUpdated = "?";
   newConfig.Initialized = true;
-
 
   for (var fieldName in defaults) {
     if (!newConfig[fieldName]) {
@@ -31,8 +29,9 @@ function initializeConfig(newConfig) {
     }
   }
 
+  newConfig.nextUpdate = config.nextUpdate; // If I need to string along more than one field, I'll make this a loop
+
   newConfig.sourceURL = sourceToURL(sources[newConfig.source]);
-  newConfig.nextUpdate = checkForScheduledUpdate();
 
   config = newConfig;
 }

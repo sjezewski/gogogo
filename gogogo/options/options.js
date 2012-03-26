@@ -6,7 +6,7 @@ var inputs = {
   'newTab' : "input[name='newTab']"
 };
 
-function updateLoadingPercentage(sourceInfo) {
+function updateLoadingPercentage(firstLoad) {
 
   var loadingPercentage = document.querySelector("#loadingPercentage");
   var percentage = localStorage["loadingPercentage"];
@@ -15,16 +15,9 @@ function updateLoadingPercentage(sourceInfo) {
 
   if (percentage < 100) {
     document.querySelector('#definitions').className = "";
-    setTimeout(function(){updateLoadingPercentage(sourceInfo)}, 50);
+    setTimeout(function(){updateLoadingPercentage(firstLoad)}, 50);
   } else {
-    document.querySelector('#definitions').className = "loaded";
-    var timestamp = document.querySelector("#timestamp");
-    timestamp.innerText = localStorage["lastUpdated"];
-    var sourceElem = document.querySelector("#source");
-    sourceElem.innerText = sourceInfo.source + " (" + sourceInfo.sourceURL + ")";
-    if (!sourceInfo.firstLoad) {
-      display("Definitions updated!", {timing: 'temp'});
-    }
+    updateComplete(firstLoad);
   }
 
 }
@@ -58,7 +51,7 @@ function update(evt) {
       console.log("Got response:");
       console.log(response);
       if (response.updating) {
-	updateLoadingPercentage(response.config);
+	updateLoadingPercentage(false);
       }
       display(response.message, {timing: 'persistent'});
     }
@@ -115,10 +108,36 @@ function init() {
 	}
       } 
       var config = response.config;
-      config.firstLoad = true;
-      updateLoadingPercentage(config);
+      updateLoadingPercentage(true);
       checkUpdateRule();
     }
   );
 
+}
+
+// In lieu of receiving a message from the background page upon completion. Request the latest config when I know the updating is done
+function updateComplete(firstLoad) {
+  chrome.extension.sendRequest(
+    {type: 'getConfig'}, 
+    function(response) {
+      console.log("Got response:", response);
+      var config = response.config;
+
+      document.querySelector('#definitions').className = "loaded";
+      var timestamp = document.querySelector("#timestamp");
+      timestamp.innerText = new Date(config.lastUpdated);
+
+      console.log("Last updated:" + config.lastUpdated);
+
+      var sourceElem = document.querySelector("#source");
+      sourceElem.innerText = config.source + " (" + config.sourceURL + ")";
+
+      var scheduled = document.querySelector("#scheduled");
+      scheduled.innerText = config.nextUpdate;
+
+      if (!firstLoad) {
+	display("Definitions updated!", {timing: 'temp'});
+      }
+    }
+  );
 }

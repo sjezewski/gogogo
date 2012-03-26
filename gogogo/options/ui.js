@@ -12,14 +12,11 @@ function hide() {
 function display(message, options) {
   if (options === undefined) {
     options = {};
-  }
-  
-  console.log("DISPLAYING RESULT")
+  }  
 
   messageElem.innerText = message;
   messageContainer.className = "";
 
-  console.log("msg Container", messageContainer);
   if (options.timing) {
     messageContainer.className = options.timing; // In case I decide I want to hide the ok button
   } else {
