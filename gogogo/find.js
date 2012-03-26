@@ -37,6 +37,7 @@ function findLinks(entry, linkText) {
     match = link.name.match(linkText);
 
     if ( match ) {
+
       var thisMatch = match[0];
       var name = [];
       var index = link.name.indexOf(thisMatch);
@@ -52,7 +53,7 @@ function findLinks(entry, linkText) {
 	description += link.signature;
       } else {
 	// TODO: For functions, I need to highlight part of the signature
-	description += name;
+	description += link.type + " " + link.name;
       }
       
       if (description.length > 77) {
