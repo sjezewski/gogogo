@@ -4,20 +4,29 @@
 <head>
 <title> Gogogo Options </title>
 <script src='./options/options.js'></script>
+<script src='./options/util.js'></script>
 <link rel='stylesheet' href='./options/options.css'></link>
 </head>
 
 <body>
 
+<div id='message'>
+
+</div>
+
 <h1> Info </h1>
 <div id='definitions'>
   
-<div id='percentage'>
-  Loading Definitions : <span id='loadingPercentage'> </span>
-</div>
-<div id='updated'>
-  Definitions last updated : <span id='timestamp'> </span>
-</div>
+  <div id='percentage'>
+    Loading Definitions : <span id='loadingPercentage'> </span>
+  </div>
+  <div id='updated'>
+    Definitions last updated : <span id='timestamp'> </span>
+  </div>
+
+  <form id='definitions' onsubmit='update(evt)'>
+    <input type='submit' value='Update Definitions'></input>
+  </form>
 
 </div>
 
@@ -67,7 +76,9 @@
  
   <h2> Functional </h2>
 
-  <input type='checkbox'> Open results in new tab? </input>
+  <input name='newTab' type='checkbox'> Open results in new tab? </input>
+
+  <input type='submit' value='Save and Update'></input>
   
 </form>
 

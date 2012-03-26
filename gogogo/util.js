@@ -22,7 +22,3 @@ function updateDefinitions() {
   config.lastUpdated = new Date();
   localStorage["lastUpdated"] = String(config.lastUpdated);
 }
-
-function checkForUpdate() {
-  // TODO ... fill in based on updateRule
-}
