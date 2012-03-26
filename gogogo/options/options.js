@@ -22,7 +22,7 @@ function updateLoadingPercentage(sourceInfo) {
     var sourceElem = document.querySelector("#source");
     sourceElem.innerText = sourceInfo.source + " (" + sourceInfo.sourceURL + ")";
     if (!sourceInfo.firstLoad) {
-      display("Definitions updated!", {temp: true});
+      display("Definitions updated!", {timing: 'temp'});
     }
   }
 
@@ -50,7 +50,7 @@ function update(evt) {
       if (response.updating) {
 	updateLoadingPercentage(response.config);
       }
-      display(response.message);
+      display(response.message, {timing: 'persistent'});
     }
   );
 }
@@ -67,7 +67,7 @@ function saveOptions(evt) {
       console.log("Got response:");
       console.log(response);
       if (response.updating) {
-	display("Re-fetching definitions");
+	display("Re-fetching definitions", {timing: 'persistent'});
 	updateLoadingPercentage(response.config);
       } else {
 	display("Saved!");

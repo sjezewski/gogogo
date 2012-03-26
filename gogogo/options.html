@@ -3,14 +3,12 @@
 
 <head>
 <title> Gogogo Options </title>
-<script src='./options/options.js'></script>
-<script src='./options/util.js'></script>
 <link rel='stylesheet' href='./options/options.css'></link>
 </head>
 
 <body>
 
-<div id='messageContainer'>
+<div id='messageContainer' class='hidden'>
 <div id='messageInnerContainer'>
 
 <div id='messageBox'>
@@ -21,15 +19,23 @@
 </div>
 </div>
 
-<h1> Info </h1>
+<h1> Definitions </h1>
 <div id='definitions' class='container'>
   
   <div id='percentage'>
-    Loading Definitions : <span id='loadingPercentage'> </span>
+    <span class='label'> Loading Definitions : </span>
+    <span id='loadingPercentage'> </span>
   </div>
   <div id='updated'>
-    Definitions last updated : <span id='timestamp'> </span> from <span id='source'> </span>
-  </div>
+    <div>
+      <span class='label'> Updated : </span>
+      <span id='timestamp' class='value'> </span>
+    </div>
+    <div>
+      <span class='label'> From : </span>
+      <span id='source' class='value'> </span>
+    </div>    
+  </div>  
 
   <form id='definitions' onsubmit='update(evt)'>
     <input type='submit' value='Update Definitions'></input>
@@ -89,6 +95,9 @@
   
 </form>
 
+
+<script src='./options/ui.js'></script>
+<script src='./options/options.js'></script>
 <script>
   init();
 </script>

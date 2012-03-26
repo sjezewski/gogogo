@@ -30,7 +30,7 @@ function initializeConfig(newConfig) {
     }
   }
 
-  newConfig.sourceURL = sourceToURL(newConfig.source);
+  newConfig.sourceURL = sourceToURL(sources[newConfig.source]);
 
   config = newConfig;
 }
