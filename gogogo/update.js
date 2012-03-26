@@ -32,10 +32,10 @@ function setScheduledUpdate(now) {
 
   switch(config.updateRule) {
   case "weekly":
-    config.nextUpdate = getNextDay(now, config.updateDay, config.updateHour);
+    config.nextUpdate = scheduledDayAndHour(now, config.updateDay, config.updateHour);
     break;
   case "daily":
-    config.nextUpdate = getNextDay(now, dayIndex[now.getDay()], config.updateHour);
+    config.nextUpdate = scheduledHour(now, config.updateHour);
     break;
   }
 
@@ -50,21 +50,32 @@ function millisecondsToNextHour(date) {
   date.setMinutes(0);
   date.setSeconds(0);
   date.setMilliseconds(0);
-  then = date.getTime();
-  return then - now;
+  var future = date.getTime();
+  return future - now;
 }
 
-function getNextDay(now, day, hours) {
+function scheduledHour(now, hour) {
+  var offset = 0;
+  if (now.getHours() >= hour) {
+    offset = 1;
+  }
+  return startOfHour(now, offset, hour);
+}
+
+function scheduledDayAndHour(now, day, hour) {
   var startDay = now.getDay();
   var endDay = dayIndex[day];
-  var nextDay = new Date();
-
   var offset = endDay - startDay;
 
   if (offset <= 0) {
     offset += 7;
   }
 
+  return startOfHour(now, offset, hour);
+}
+
+function startOfHour(now, offset, hours) {
+  var nextDay = new Date();
   nextDay.setDate(now.getDate() + offset);
 
   if (hours === undefined) {
