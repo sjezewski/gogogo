@@ -3,6 +3,7 @@
 ## User Configuration ##
 
 - adjust number of suggestions (although chrome may limit it to 5?)
+- Add custom host to fetch definitions (e.g. localhost which hosts the docs for your current system)
 
 ## General ##
 
