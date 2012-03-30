@@ -36,9 +36,9 @@ chrome.extension.onRequest.addListener(
 
       if (config.source != newConfig.source) {
 	requiresUpdate = true;
-      } else {
-	newConfig.Entries = config.Entries; // TODO: Keep definitions separate
-      }
+      } /*else {
+	newConfig.Entries = Entries; // TODO: Keep definitions separate
+      }*/
 
       initializeConfig(newConfig);
 

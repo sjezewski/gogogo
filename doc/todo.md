@@ -21,5 +21,10 @@
 ## Bugs ##
 
 - Results are messed up after browser restart
+  - Ill store entries / config in local storage
+  - I should really separate the two at this point
+- I have enough distinct objects / methods that I should use prototypes for:
+  - config
+  - Entries / entry
 - Extra urls (that are relative image urls) getting requested when updating
 - If you hit update definitions while its updating ... it thinks its done and won't update again

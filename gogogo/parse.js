@@ -17,7 +17,7 @@ function parseDocList(raw) {
     description = getDescription(entry);
     var href = entry.getAttribute('href');
 
-    config.Entries.push({'path': href, 'name': entry.innerText, 'desc' : description});
+    Entries.push({'path': href, 'name': entry.innerText, 'desc' : description});
     fetchLinks(i, href);
   }	
   
@@ -38,7 +38,7 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
   doc.innerHTML = rawDoc;
   
   var links = doc.querySelectorAll(linkSelectors[config.source]);
-  var entry = config.Entries[entryIndex];
+  var entry = Entries[entryIndex];
   var foundLink = false;
   
   for(var i=0; i < links.length; i++){
@@ -78,7 +78,7 @@ function parseLinks(entryIndex, sourceURL, rawDoc){
     }
   }
   LoadedEntries.push(entryIndex);
-  config.Loaded = LoadedEntries.length / config.Entries.length;
+  config.Loaded = LoadedEntries.length / Entries.length;
   var percentage = (100*config.Loaded).toFixed(0);
   console.log("Loaded " + percentage + "%");
   localStorage["loadingPercentage"] = percentage;
