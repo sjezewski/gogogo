@@ -12,60 +12,31 @@ var sources = {
   "weekly" : "weekly.golang.org"
 };
 
-function Config(options) {
-  if (options === undefined) {
-    options = {};
+function sourceToURL(source) {
+  return "http://" + source + "/pkg/";
+}
+
+function initializeConfig(newConfig) {
+  if (newConfig === undefined) {
+    newConfig = {};
   }
 
-  this.init(options);
-}
+  newConfig.Initialized = true;
 
-Config.prototype = {
-  save: function() {
-    
-  },
-
-  load: function() {
-    
-  },
-
-  sourceURL: function() {
-    return "http://" + sources[this.options[source]] + "/pkg/";
-  },
-
-  init: function(newOptions) {
-    if (newOptions === undefined) {
-      newOptions = {};
+  for (var fieldName in defaults) {
+    if (!newConfig[fieldName]) {
+      newConfig[fieldName] = defaults[fieldName];
     }
-
-    newOptions.Initialized = true;
-
-    for (var fieldName in defaults) {
-      if (!newOptions[fieldName]) {
-        newOptions[fieldName] = defaults[fieldName];
-      }
-    }
-
-    ["lastUpdated", "nextUpdate"].forEach(
-      function(field) {
-        newOptions[field] = config[field];
-      }
-    )
-
-    newOptions.sourceURL = sourceToURL(sources[newOptions.source]);
-
-    config = newOptions;
-    
   }
 
+  ["lastUpdated", "nextUpdate"].forEach(
+    function(field) {
+      newConfig[field] = config[field];
+    }
+  )
+
+  newConfig.sourceURL = sourceToURL(sources[newConfig.source]);
+
+  config = newConfig;
 }
 
-
-
-function saveConfig() {
-  localStorage.config = JSON.stringify(config);
-}
-
-function loadConfig() {
-  config = JSON.parse(localStorage.config);
-}

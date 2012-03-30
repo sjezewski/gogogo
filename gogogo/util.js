@@ -20,33 +20,22 @@ function openTab(url) {
 }
 
 function updateDefinitions() {
-
-  if (reloadData()) {
-    console.log("Data already loaded!")
-    return
-  }
-
-  Entries = [];
-  LoadedEntries = [];
-
   // Updates the definitions
   localStorage["loadingPercentage"] = 0;
   config.Loading = true;
+
+  // TODO : Later I'll revert if there's an error
+  // config._Entries = config.Entries;
+
+  config.Entries = [];
+  LoadedEntries = [];
 
   fetchDocList();
 
   // TODO: Revert to old entries list if there is an error
   config.Loading = false;
+
   config.lastUpdated = (new Date()).getTime();
-  
-  saveEntries();
-  saveConfig();
-}
+//  localStorage["lastUpdated"] = String(config.lastUpdated);
 
-function saveEntries() {
-  localStorage.Entries = JSON.stringify(Entries);
-}
-
-function loadEntries() {
-  Entries = JSON.parse(localStorage.Entries);
 }
