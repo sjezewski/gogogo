@@ -1,10 +1,10 @@
 var config = {};
 
 var defaults = {
-  "updateRule" : "daily",
-  "updateDay" : "Monday",
+  "updateRule" : "weekly",
+  "updateDay" : "Mon",
   "updateHour" : 3,
-  "source" : "weekly"
+  "source" : "stable"
 };
 
 var sources = {

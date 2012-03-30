@@ -24,7 +24,7 @@ function parseDocList(raw) {
 }
 
 var linkSelectors = {
-  "stable" : "#content > h2[id], #content > h3[id]",
+  "stable" : "#manual-nav > h2[id], #manual-nav > h3[id]",
   "weekly" : "#manual-nav > h2[id], #manual-nav > h3[id]"
 };
 
